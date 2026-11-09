@@ -1,0 +1,1 @@
+{ "name": "Belvedere Hills Apartmani Kopaonik", "short_name": "Belvedere Hills", "icons": [ { "src": "images/ikone/icon-192.png", "sizes": "192x192", "type": "image/png" }, { "src": "images/ikone/icon-512.png", "sizes": "512x512", "type": "image/png" } ], "theme_color": "#1d2730", "background_color": "#1d2730", "display": "browser" }

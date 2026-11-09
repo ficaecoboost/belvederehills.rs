@@ -1,0 +1,652 @@
+/* =========================================================
+   Belvedere Hills - nov izgled
+   Učitava se POSLE style.css i prepisuje deo stilova šablona.
+   Boje se menjaju na jednom mestu (:root).
+   ========================================================= */
+:root {
+  --bh-accent: #b99365;        /* zlatna iz šablona */
+  --bh-accent-dark: #9c7a4f;
+  --bh-ink: #1d2730;           /* tamno plava/škriljac */
+  --bh-text: #5b6670;
+  --bh-light: #f6f3ee;         /* topla svetla pozadina */
+  --bh-line: #e7e1d8;
+  --bh-radius: 14px;
+  --bh-shadow: 0 18px 45px -20px rgba(29, 39, 48, .35);
+}
+
+html { scroll-behavior: smooth; }
+/* <picture> (WebP + JPG rezerva) ne menja raspored: img se ponaša kao da je direktno u roditelju */
+picture { display: contents; }
+body { color: var(--bh-text); font-size: 17px; line-height: 1.7; background: #fff; }
+h1, h2, h3, h4, h5 { color: var(--bh-ink); }
+a { color: var(--bh-accent-dark); }
+a:hover { color: var(--bh-ink); }
+section[id] { scroll-margin-top: 80px; }
+.bg-light { background: var(--bh-light) !important; }
+.site-section { padding: 6em 0; }
+@media (max-width: 767.98px) { .site-section { padding: 4em 0; } }
+
+/* ---------- Dugmad ---------- */
+.btn { border-radius: 999px; letter-spacing: .03em; font-weight: 500; }
+.btn-primary, .btn-primary:not(:disabled):not(.disabled):active {
+  background: var(--bh-accent); border-color: var(--bh-accent); color: #fff; padding: 12px 28px;
+}
+.btn-primary:hover, .btn-primary:focus { background: var(--bh-accent-dark); border-color: var(--bh-accent-dark); color: #fff; }
+.btn-primary.btn-sm { padding: 8px 20px; }
+.btn-outline-primary { color: var(--bh-accent-dark); border-color: var(--bh-accent); padding: 10px 26px; }
+.btn-outline-primary:hover { background: var(--bh-accent); border-color: var(--bh-accent); color: #fff; }
+.btn-outline-primary.btn-sm { padding: 7px 19px; }
+.btn-outline-white { border: 2px solid rgba(255,255,255,.8); color: #fff; padding: 10px 26px; }
+.btn-outline-white:hover { background: #fff; color: var(--bh-ink); }
+.btn-link { color: var(--bh-accent-dark); }
+
+/* ---------- Meni ---------- */
+header { position: fixed; }
+header .bh-nav { transition: background .3s ease, box-shadow .3s ease; }
+header .bh-nav.scrolled { background: rgba(29, 39, 48, .96) !important; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+header .bh-nav.scrolled .nav-link { padding-top: 1.1rem; padding-bottom: 1.1rem; }
+header .navbar-brand { line-height: 1.1; font-family: "Playfair Display", serif; font-weight: 700; letter-spacing: .12em; font-size: 1.35rem; text-shadow: 0 2px 12px rgba(0,0,0,.5); }
+/* Zlatna linija ispod imena i zlatni podnaslov */
+header .navbar-brand small { position: relative; display: block; font-family: "Rubik", sans-serif; font-weight: 500; font-size: .62rem; letter-spacing: .3em; color: #d4b383; padding-top: 6px; margin-top: 5px; text-shadow: none; }
+/* Zlatna linija se "iscrta" sleva nadesno pri učitavanju stranice */
+header .navbar-brand small:before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--bh-accent);
+  transform: scaleX(0); transform-origin: left; animation: bhBrandLine 1.1s cubic-bezier(.65,0,.35,1) .3s forwards;
+}
+@keyframes bhBrandLine { to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { header .navbar-brand small:before { animation: none; transform: none; } }
+header .navbar .nav-link { color: rgba(255,255,255,.92) !important; font-weight: 500; font-size: .95rem; padding-left: .8rem; padding-right: .8rem; }
+header .navbar .nav-link.active, header .navbar .nav-link:hover { color: #fff !important; }
+header .navbar .cta > a { margin-top: 0; }
+header .navbar .cta > a span { border: 0; background: var(--bh-accent); border-radius: 999px; padding: 9px 20px; color: #fff; }
+header .navbar .cta > a:hover span { background: var(--bh-accent-dark); }
+@media (min-width: 992px) {
+  /* Sve stavke menija poravnate po sredini, uključujući dugme "Pošalji upit" */
+  header .navbar-nav { align-items: center; }
+  header .navbar .cta > a,
+  header .bh-nav.scrolled .cta > a { padding-top: 0; padding-bottom: 0; margin-left: .4rem; }
+  header .navbar .cta > a span { display: inline-block; line-height: 1.5; }
+}
+@media (max-width: 991.98px) {
+  header .navbar { background: rgba(29, 39, 48, .96) !important; }
+  header .navbar .cta > a span { margin-top: .5rem; }
+}
+
+/* ---------- Hero ---------- */
+.bh-hero { background-size: cover; background-position: center; background-color: var(--bh-ink); }
+/* Tamniji vrh slike da meni i ime hotela budu uočljiviji */
+.site-hero.overlay:before { background: linear-gradient(180deg, rgba(20,28,35,.8) 0%, rgba(20,28,35,.45) 18%, rgba(20,28,35,.35) 45%, rgba(20,28,35,.65) 100%); }
+.site-hero.overlay h1 { font-size: 64px; line-height: 1.1; margin-bottom: 18px; }
+.site-hero.overlay p { font-size: 21px; font-weight: 300; }
+.bh-eyebrow { font-size: 13px !important; letter-spacing: .35em; text-transform: uppercase; color: rgba(255,255,255,.85) !important; margin-bottom: 14px; }
+.bh-hero-btns .btn { margin: 6px; }
+.bh-hero-inner, .bh-hero-inner .site-hero-inner { min-height: 460px; height: 62vh; }
+.bh-hero-inner h1 { font-size: 52px !important; }
+@media (max-width: 767.98px) {
+  .site-hero, .site-hero .site-hero-inner { min-height: 600px; height: 92vh; }
+  .bh-hero-inner, .bh-hero-inner .site-hero-inner { min-height: 380px; height: 55vh; }
+  .site-hero.overlay h1, .bh-hero-inner h1 { font-size: 36px !important; }
+  .site-hero.overlay p { font-size: 17px; }
+}
+
+/* ---------- Brze informacije ---------- */
+.bh-facts { background: var(--bh-ink); color: #fff; padding: 28px 0; }
+.bh-facts strong { display: block; font-family: "Playfair Display", serif; font-size: 30px; color: var(--bh-accent); font-weight: 700; font-variant-numeric: tabular-nums lining-nums; }
+.bh-facts span { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+@media (max-width: 767.98px) { .bh-facts .col-6 { margin: 10px 0; } .bh-facts strong { font-size: 24px; } }
+
+/* ---------- Naslovi sekcija ---------- */
+.heading-wrap .heading { font-size: 44px; margin-bottom: 18px; }
+.heading-wrap .sub-heading { color: var(--bh-accent-dark); font-weight: 500; letter-spacing: .25em; }
+.bh-lead { font-size: 19px; max-width: 720px; }
+@media (max-width: 767.98px) { .heading-wrap .heading, .bh-feature .heading { font-size: 32px; } }
+
+/* ---------- Pomoćne ---------- */
+.bh-rounded { border-radius: var(--bh-radius); overflow: hidden; }
+.bh-shadow { box-shadow: var(--bh-shadow); }
+.bh-card { background: #fff; border-radius: var(--bh-radius); padding: 32px; box-shadow: var(--bh-shadow); }
+.bg-light .bh-card { box-shadow: 0 10px 30px -18px rgba(29,39,48,.3); }
+
+.bh-checklist { list-style: none; padding: 0; margin: 0 0 1rem; }
+.bh-checklist li { position: relative; padding-left: 30px; margin-bottom: 10px; }
+.bh-checklist li:before {
+  content: "\f122"; font-family: "Ionicons"; position: absolute; left: 0; top: 0;
+  color: var(--bh-accent); font-size: 20px; line-height: 1.5;
+}
+
+/* ---------- Kartice apartmana ---------- */
+.bh-apt { background: #fff; border-radius: var(--bh-radius); overflow: hidden; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 30px -18px rgba(29,39,48,.35); transition: transform .3s ease, box-shadow .3s ease; }
+.bh-apt:hover { transform: translateY(-6px); box-shadow: var(--bh-shadow); }
+.bh-apt figure { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--bh-line); }
+.bh-apt figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.bh-apt:hover figure img { transform: scale(1.05); }
+.bh-apt-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+.bh-apt-body h3 { font-size: 22px; margin-bottom: 10px; }
+.bh-apt-body p { font-size: 15px; }
+.bh-apt-body .btn { margin-top: auto; }
+.bh-apt-specs { list-style: none; padding: 0; margin: 0 0 12px; display: flex; gap: 16px; font-size: 14px; color: var(--bh-ink); }
+.bh-apt-specs span { color: var(--bh-accent); font-size: 18px; vertical-align: -2px; margin-right: 3px; }
+.bh-apt-units { font-size: 13px !important; letter-spacing: .05em; color: var(--bh-ink); background: var(--bh-light); border-radius: 8px; padding: 6px 10px; }
+.bh-apt-plan { font-size: 14px !important; }
+.bh-plan-link { display: block; color: var(--bh-text); }
+.bh-plan-link span { display: block; margin-top: 10px; font-size: 14px; }
+
+/* ---------- Ikonice sadržaja ---------- */
+.bh-amenities > div { text-align: center; margin-bottom: 28px; }
+.bh-amenities span { display: inline-flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 50%; background: var(--bh-light); color: var(--bh-accent-dark); font-size: 32px; margin-bottom: 12px; transition: background .3s, color .3s; }
+.bg-light .bh-amenities span { background: #fff; }
+.bh-amenities > div:hover span { background: var(--bh-accent); color: #fff; }
+.bh-amenities h3 { font-family: "Rubik", sans-serif; font-size: 15px; font-weight: 500; }
+
+/* ---------- Lokacija ---------- */
+.bh-list-title { font-family: "Rubik", sans-serif; text-transform: uppercase; letter-spacing: .15em; font-size: 12px !important; color: var(--bh-accent-dark); }
+.bh-distance { list-style: none; padding: 0; margin: 0; font-size: 15px; }
+.bh-distance li { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--bh-line); padding: 6px 0; color: var(--bh-ink); }
+.bh-distance li span { color: var(--bh-text); white-space: nowrap; padding-left: 10px; }
+.bh-map { position: relative; padding-top: 70%; background: var(--bh-line); }
+.bh-map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ---------- Galerija ---------- */
+.bh-filter button { background: transparent; border: 1px solid var(--bh-line); border-radius: 999px; padding: 8px 20px; margin: 4px; font-size: 15px; color: var(--bh-ink); cursor: pointer; transition: all .2s; }
+.bh-filter button:hover { border-color: var(--bh-accent); }
+.bh-filter button.active { background: var(--bh-ink); border-color: var(--bh-ink); color: #fff; }
+.bh-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 991.98px) { .bh-gallery { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 575.98px) { .bh-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
+.gal-item { display: none; border-radius: 10px; overflow: hidden; aspect-ratio: 3 / 2; background: var(--bh-line); }
+.gal-item.is-visible { display: block; }
+.gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease, opacity .3s; }
+.gal-item:hover img { transform: scale(1.06); opacity: .9; }
+
+/* ---------- CTA traka ---------- */
+.bh-cta { background-position: center !important; background-attachment: fixed; }
+.bh-cta:before { content: ""; position: absolute; inset: 0; background: rgba(20,28,35,.6); }
+.bh-cta .container { position: relative; z-index: 1; }
+.section-cover h2 { font-size: 44px; }
+@media (max-width: 991.98px) { .bh-cta { background-attachment: scroll; } .section-cover h2 { font-size: 32px; } }
+
+/* ---------- Stranica Sadržaji ---------- */
+.bh-subnav { position: sticky; top: 64px; z-index: 4; background: #fff; border-bottom: 1px solid var(--bh-line); }
+.bh-subnav .container { display: flex; gap: 6px; overflow-x: auto; white-space: nowrap; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.bh-subnav a { color: var(--bh-ink); font-size: 14px; padding: 6px 14px; border-radius: 999px; }
+.bh-subnav a:hover { background: var(--bh-light); text-decoration: none; }
+.bh-feature .heading { font-size: 40px; margin-bottom: 18px; }
+.bh-feature-icon { display: inline-flex; width: 56px; height: 56px; border-radius: 50%; align-items: center; justify-content: center; background: var(--bh-light); color: var(--bh-accent-dark); font-size: 26px; margin-bottom: 16px; }
+.bg-light .bh-feature-icon { background: #fff; }
+.bh-feature img { aspect-ratio: 3 / 2; object-fit: cover; width: 100%; background: var(--bh-line); }
+.bh-card-icon span { font-size: 36px; color: var(--bh-accent); display: block; margin-bottom: 10px; }
+.bh-card-icon h3 { font-size: 22px; }
+.bh-card-icon p { font-size: 15px; margin-bottom: 0; }
+
+/* ---------- Kontakt i forma ---------- */
+.bh-form-card label { font-size: 14px; font-weight: 500; color: var(--bh-ink); margin-bottom: 4px; }
+.bh-form-card .form-control { border-radius: 10px; border-color: var(--bh-line); height: auto; padding: 11px 14px; font-size: 16px; }
+.bh-form-card select.form-control { height: 48px; }
+.bh-form-card .form-control:focus { border-color: var(--bh-accent); box-shadow: 0 0 0 3px rgba(185,147,101,.2); }
+.bh-form-card .custom-control-label { font-weight: 400; font-size: 14px; color: var(--bh-text); }
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before { background-color: var(--bh-accent); }
+.bh-form-card .is-invalid ~ .custom-control-label { color: #c0392b; }
+.bh-form-msg { border-radius: 10px; }
+.bh-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.bh-contact-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.bh-contact-list span { color: var(--bh-accent); font-size: 22px; width: 24px; text-align: center; line-height: 1.2; }
+.bh-contact-big li { margin-bottom: 20px; color: var(--bh-ink); }
+.bh-contact-big small { display: block; text-transform: uppercase; letter-spacing: .12em; font-size: 11px; color: var(--bh-text); }
+.bh-contact-big a { color: var(--bh-ink); font-weight: 500; overflow-wrap: anywhere; }
+
+/* ---------- Futer ---------- */
+.bh-footer { background: var(--bh-ink); color: rgba(255,255,255,.75); }
+.bh-footer h3 { color: var(--bh-accent); }
+.bh-footer p, .bh-footer li { color: rgba(255,255,255,.75); }
+.bh-footer a { color: #fff; }
+.bh-footer .bh-social { margin-right: 6px; display: inline-flex; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); align-items: center; justify-content: center; }
+.bh-footer .bh-social:hover { background: var(--bh-accent); border-color: var(--bh-accent); text-decoration: none; }
+.bh-copy { font-size: 14px; border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px; }
+
+/* ---------- Dugme za upit na telefonu ---------- */
+.bh-mobile-cta { display: none; }
+@media (max-width: 767.98px) {
+  .bh-mobile-cta {
+    /* 60% širine ekrana, centrirano (min. širina da tekst stane u jedan red) */
+    display: block; position: fixed; left: 50%; bottom: 16px; z-index: 50; width: 60%; min-width: 250px;
+    background: var(--bh-accent); color: #fff; text-align: center; padding: 14px 18px; border-radius: 999px;
+    font-weight: 500; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    /* Skriveno dok se ne skroluje (klasa is-shown iz bh.js) */
+    transform: translate(-50%, 160%); opacity: 0; pointer-events: none;
+    transition: transform .35s ease, opacity .35s ease;
+  }
+  .bh-mobile-cta.is-shown { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+  .bh-mobile-cta:hover { color: #fff; text-decoration: none; }
+  body { padding-bottom: 80px; }
+  .page-kontakt .bh-mobile-cta { display: none; }
+  .page-kontakt { padding-bottom: 0; }
+}
+
+/* Lightbox */
+.mfp-fade.mfp-bg { opacity: 0; transition: all .2s ease-out; }
+.mfp-fade.mfp-bg.mfp-ready { opacity: .9; }
+.mfp-fade.mfp-wrap .mfp-content { opacity: 0; transition: all .2s ease-out; }
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content { opacity: 1; }
+/* Animacija pri skrolu: sadržaj je vidljiv i bez JavaScript-a */
+.element-animate { opacity: 1; visibility: visible; }
+.bh-anim .element-animate:not(.element-animated) { opacity: 0; }
+.bh-card h2, .bh-card h3 { font-family: "Playfair Display", serif; color: var(--bh-ink); }
+.bh-form-card select.form-control { padding-top: 8px; padding-bottom: 8px; }
+
+/* =========================================================
+   HERO v2 - naslovna (v1 je sačuvan u ../_verzije/v1/)
+   ========================================================= */
+.bh-hero-v2 { overflow: hidden; background-color: var(--bh-ink); }
+/* Pozadina koja polako zumira (Ken Burns) */
+.bh-hero-media {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center top; transform-origin: 50% 0; /* vrh slike (krovovi) uvek u kadru; isto i u js/sneg.js */
+  transform: scale(1.12);
+}
+/* Zum kreće tek kad js/sneg.js doda is-zoom (posle snega, ili odmah van sezone) */
+.bh-hero-media.is-zoom { animation: bhZoom 14s cubic-bezier(.25,.1,.25,1) forwards; }
+/* Zimski izgled fotografije (samo u sezoni snega): hladniji tonovi, bleđe nebo, izmaglica pri dnu */
+.bh-hero-media.is-zima:after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(0deg, rgba(236,241,246,.2) 0%, rgba(236,241,246,0) 26%); /* lagana izmaglica pri dnu */
+}
+/* Sunce gore desno: mali element (ne preko celog hero-a, da zum ostane brz), iznad tamnog prelaza, ispod teksta */
+.bh-hero-v2.has-sunce:after {
+  content: ""; position: absolute; z-index: 1; pointer-events: none;
+  top: -4vh; right: -20vw; width: 56vw; height: 60vh; max-width: 860px; max-height: 600px;
+  background: radial-gradient(closest-side, rgba(255,250,236,.95) 0, rgba(255,243,212,.82) 7%, rgba(255,228,178,.38) 20%, rgba(255,216,160,.12) 48%, rgba(255,212,155,0) 100%);
+}
+@media (max-width: 767.98px) { .bh-hero-v2.has-sunce:after { top: 20px; right: -48vw; width: 96vw; height: 34vh; } }
+/* Zima: svetliji vrh hero-a (sunčan dan umesto "noćnog" neba), meni ostaje čitljiv */
+.bh-hero-v2.has-sunce.overlay:before {
+  background:
+    linear-gradient(180deg, rgba(20,28,35,.55) 0%, rgba(20,28,35,0) 20%),
+    linear-gradient(0deg, rgba(20,28,35,.55) 0%, rgba(20,28,35,0) 30%),
+    linear-gradient(90deg, rgba(20,28,35,.72) 0%, rgba(20,28,35,.35) 55%, rgba(20,28,35,.05) 100%);
+}
+@media (max-width: 767.98px) {
+  .bh-hero-v2.has-sunce.overlay:before { background: linear-gradient(180deg, rgba(20,28,35,.6) 0%, rgba(20,28,35,.35) 30%, rgba(20,28,35,.45) 70%, rgba(20,28,35,.72) 100%); }
+}
+/* Tamno gore (meni) i levo (tekst), svetlije desno da se vidi objekat */
+.bh-hero-v2.overlay:before {
+  background:
+    linear-gradient(180deg, rgba(20,28,35,.8) 0%, rgba(20,28,35,0) 26%),
+    linear-gradient(0deg, rgba(20,28,35,.55) 0%, rgba(20,28,35,0) 30%),
+    linear-gradient(90deg, rgba(20,28,35,.78) 0%, rgba(20,28,35,.45) 55%, rgba(20,28,35,.15) 100%);
+}
+
+/* Nadnaslov sa zlatnom linijom */
+.bh-hero-v2 .bh-eyebrow { display: flex; align-items: center; gap: 14px; color: #d4b383 !important; }
+.bh-hero-v2 .bh-eyebrow:before { content: ""; width: 44px; height: 1px; background: var(--bh-accent); }
+
+/* Naslov: redovi izlaze iz maske jedan za drugim */
+.bh-title { font-size: 84px !important; line-height: 1.02 !important; margin-bottom: 26px !important; letter-spacing: -.01em; }
+.bh-line { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
+.bh-line > span { display: inline-block; transform: translateY(105%); animation: bhLineUp 1.1s cubic-bezier(.19,1,.22,1) var(--d, 0s) forwards; }
+.bh-title em { font-style: italic; color: #d4b383; position: relative; }
+/* Zlatna linija koja se iscrta ispod "Kopaoniku" */
+.bh-title em:after {
+  content: ""; position: absolute; left: 2px; right: 0; bottom: .06em; height: 2px;
+  background: var(--bh-accent); transform: scaleX(0); transform-origin: left;
+  animation: bhDraw .9s cubic-bezier(.65,0,.35,1) 1.25s forwards;
+}
+.site-hero.overlay .bh-hero-lead { font-size: 20px; max-width: 520px; color: rgba(255,255,255,.88); margin-bottom: 30px; }
+.bh-hero-v2 .bh-hero-btns .btn { margin: 6px 12px 6px 0; }
+
+/* Ostali elementi samo izrone */
+.bh-rise { opacity: 0; animation: bhRise .9s cubic-bezier(.19,1,.22,1) var(--d, 0s) forwards; }
+
+/* Stakleni bedž desno dole */
+.bh-hero-badge {
+  position: absolute; z-index: 2; right: 6%; bottom: 12%; padding: 20px 26px; border-radius: var(--bh-radius);
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #fff;
+}
+.bh-hero-badge small { display: block; font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: #d4b383; margin-bottom: 10px; }
+.bh-hero-badge ul { list-style: none; margin: 0; padding: 0; }
+.bh-hero-badge li { display: flex; align-items: center; gap: 10px; font-size: 15px; padding: 4px 0; }
+.bh-hero-badge li span { color: #d4b383; font-size: 18px; width: 18px; text-align: center; }
+
+/* Indikator skrolovanja */
+.bh-scroll {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 28px; width: max-content; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: rgba(255,255,255,.7); font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+}
+.bh-scroll:hover { color: #fff; text-decoration: none; }
+.bh-scroll span { position: relative; width: 1px; height: 44px; background: rgba(255,255,255,.25); overflow: hidden; }
+.bh-scroll span:after { content: ""; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: #d4b383; animation: bhScroll 2s ease-in-out infinite; }
+
+@keyframes bhZoom   { to { transform: scale(1); } }
+@keyframes bhLineUp { to { transform: translateY(0); } }
+@keyframes bhDraw   { to { transform: scaleX(1); } }
+@keyframes bhRise   { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes bhScroll { 0% { top: -40%; } 100% { top: 100%; } }
+
+@media (max-width: 1199.98px) { .bh-title { font-size: 68px !important; } }
+@media (max-width: 991.98px)  { .bh-hero-badge { display: none; } .bh-title { font-size: 58px !important; } }
+@media (max-width: 767.98px) {
+  /* Na telefonu sve centrirano */
+  .bh-hero-v2 .site-hero-inner { justify-content: center; text-align: center; }
+  .bh-hero-v2 .bh-eyebrow { justify-content: center; }
+  .bh-hero-v2 .bh-eyebrow:after { content: ""; width: 44px; height: 1px; background: var(--bh-accent); }
+  .bh-hero-v2 .bh-eyebrow:before, .bh-hero-v2 .bh-eyebrow:after { width: 24px; }
+  .bh-hero-v2 .bh-hero-btns .btn { margin: 6px; }
+  /* Tekst oko sredine, dugmad pri dnu hero-a */
+  .bh-hero-v2 .site-hero-inner { align-items: stretch !important; }
+  .bh-hero-v2 .site-hero-inner > div { display: flex; flex-direction: column; padding-top: 90px; padding-bottom: 24px; }
+  .bh-hero-v2 .bh-eyebrow { margin-top: auto; }
+  .bh-hero-v2 .bh-hero-btns { margin-top: auto; margin-bottom: 0; }
+  .bh-title { font-size: 44px !important; }
+  .site-hero.overlay .bh-hero-lead { font-size: 17px; margin-left: auto; margin-right: auto; }
+  .bh-scroll { display: none; }
+  .bh-hero-v2.overlay:before {
+    background: linear-gradient(180deg, rgba(20,28,35,.8) 0%, rgba(20,28,35,.45) 30%, rgba(20,28,35,.5) 70%, rgba(20,28,35,.75) 100%);
+  }
+}
+
+/* Za korisnike koji su isključili animacije u sistemu */
+@media (prefers-reduced-motion: reduce) {
+  .bh-hero-media, .bh-line > span, .bh-title em:after, .bh-rise, .bh-scroll span:after { animation: none !important; }
+  .bh-hero-media, .bh-line > span { transform: none; }
+  .bh-title em:after { transform: scaleX(1); }
+  .bh-rise { opacity: 1; }
+}
+/* =========================================================
+   STRANICE APARTMANA (apartman-*.html)
+   ========================================================= */
+/* Nema hero slike, pa meni ima tamnu pozadinu od početka */
+.page-apartman header .bh-nav { background: rgba(29, 39, 48, .97) !important; }
+.bh-apt-top { padding: 120px 0 0; }
+@media (max-width: 991.98px) { .bh-apt-top { padding-top: 96px; } }
+.bh-crumbs { font-size: 13px; letter-spacing: .05em; color: var(--bh-text); margin-bottom: 14px; }
+.bh-crumbs a { color: var(--bh-accent-dark); }
+.bh-crumbs span { margin: 0 8px; opacity: .5; }
+.bh-apt-title { font-size: 52px; line-height: 1.1; margin-bottom: 12px; }
+@media (max-width: 767.98px) { .bh-apt-title { font-size: 36px; } }
+
+/* Mozaik fotografija: 1 velika + 4 male */
+.bh-mosaic { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 250px 250px; gap: 10px; border-radius: var(--bh-radius); overflow: hidden; }
+.bh-mosaic .m-item { position: relative; display: block; overflow: hidden; background: var(--bh-line); }
+.bh-mosaic .m-big { grid-row: span 2; }
+.bh-mosaic .m-hidden { display: none; }
+.bh-mosaic img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.bh-mosaic .m-item:hover img { transform: scale(1.04); }
+.bh-mosaic .m-more {
+  position: absolute; right: 12px; bottom: 12px; background: rgba(255,255,255,.95); color: var(--bh-ink);
+  font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.2);
+}
+@media (max-width: 991.98px) { .bh-mosaic { grid-template-rows: 190px 190px; } }
+@media (max-width: 767.98px) {
+  .bh-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 110px; }
+  .bh-mosaic .m-big { grid-column: span 2; grid-row: auto; }
+  .bh-mosaic .m-item:nth-child(4), .bh-mosaic .m-item:nth-child(5) { display: none; }
+  /* Na telefonu "Sve fotografije" ide na treću sličicu */
+  .bh-mosaic .m-item:nth-child(3):after { content: "Sve fotografije"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(20,28,35,.55); color: #fff; font-size: 14px; font-weight: 500; }
+}
+
+/* Detalji */
+.bh-apt-details { padding-top: 3.5em; }
+.bh-apt-facts { list-style: none; padding: 0; margin: 0 0 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.bh-apt-facts li { background: var(--bh-light); border-radius: 12px; padding: 16px; }
+.bh-apt-facts span { color: var(--bh-accent); font-size: 24px; display: block; line-height: 1; margin-bottom: 8px; }
+.bh-apt-facts strong { display: block; color: var(--bh-ink); font-weight: 500; font-size: 15px; line-height: 1.3; }
+.bh-apt-facts small { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--bh-text); }
+@media (max-width: 767.98px) { .bh-apt-facts { grid-template-columns: repeat(2, 1fr); } }
+.bh-h2 { font-size: 28px; margin: 36px 0 16px; }
+.bh-apt-details .bh-h2:first-of-type { margin-top: 0; }
+.bh-checklist-2 { columns: 2; column-gap: 32px; }
+.bh-checklist-2 li { break-inside: avoid; }
+@media (max-width: 767.98px) { .bh-checklist-2 { columns: 1; } }
+
+.bh-plans { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.bh-plan { display: block; background: #fff; border: 1px solid var(--bh-line); border-radius: 12px; padding: 10px; text-align: center; color: var(--bh-ink); transition: border-color .2s, box-shadow .2s; }
+.bh-plan:hover { border-color: var(--bh-accent); box-shadow: var(--bh-shadow); text-decoration: none; color: var(--bh-ink); }
+.bh-plan img { width: 100%; height: 140px; object-fit: contain; }
+.bh-plan span { display: block; font-size: 13px; margin-top: 6px; }
+.bh-apt-units-lg { display: inline-block; font-size: 15px !important; padding: 10px 16px; }
+
+/* Kartica za upit */
+.bh-book { position: sticky; top: 100px; }
+.bh-book h2 { margin-bottom: 10px; }
+.bh-book p { font-size: 15px; }
+.bh-book-specs { list-style: none; padding: 0; margin: 0 0 20px; font-size: 15px; }
+.bh-book-specs li { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--bh-line); padding: 8px 0; color: var(--bh-ink); }
+.bh-book-specs span { color: var(--bh-text); }
+.bh-book-call { text-align: center; font-size: 14px; margin: 12px 0 0; }
+
+/* Klikabilne kartice apartmana (naslovna i "Ostali apartmani") */
+.bh-apt { position: relative; }
+.bh-apt-link { color: inherit; }
+.bh-apt-link:hover { color: var(--bh-accent-dark); text-decoration: none; }
+.bh-apt-link:after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.bh-apt .btn, .bh-apt-plan a, .bh-apt-upit { position: relative; z-index: 2; }
+.bh-apt-more { margin-top: auto; color: var(--bh-accent-dark); font-weight: 500; font-size: 15px; }
+.bh-apt:hover .bh-apt-more { color: var(--bh-ink); }
+.bh-apt-upit { display: block; text-align: center; font-size: 14px; margin-top: 10px; }
+.bh-apt-small .bh-apt-body { padding: 20px; }
+/* Brzi izbor apartmana na telefonu (naslovna, ispod uvodnog teksta) */
+.bh-apt-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; text-align: left; }
+.bh-apt-quick a {
+  position: relative; display: block; background: #fff; border: 1px solid var(--bh-line); border-radius: 14px;
+  padding: 14px 32px 14px 16px; color: var(--bh-ink); box-shadow: 0 8px 20px -14px rgba(29,39,48,.4);
+  transition: border-color .2s, background .2s;
+}
+.bh-apt-quick a:hover, .bh-apt-quick a:active { border-color: var(--bh-accent); text-decoration: none; color: var(--bh-ink); }
+.bh-apt-quick strong { display: block; font-family: "Playfair Display", serif; font-size: 19px; font-weight: 700; line-height: 1.2; }
+.bh-apt-quick small { display: block; font-size: 12px; color: var(--bh-text); margin-top: 3px; }
+.bh-apt-quick span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--bh-accent); font-size: 18px; }
+/* Tablet i računar: sva 4 u jednom redu */
+@media (min-width: 768px) {
+  .bh-apt-quick { grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 960px; margin: 32px auto 0; }
+  .bh-apt-quick a { padding: 16px 36px 16px 20px; transition: border-color .2s, transform .25s ease, box-shadow .25s ease; }
+  .bh-apt-quick a:hover { transform: translateY(-3px); box-shadow: var(--bh-shadow); }
+}
+
+/* Kolaž u sekciji "O apartmanima" (naslovna) */
+.bh-collage { position: relative; aspect-ratio: 1 / 1; max-width: 560px; margin: 0 auto; }
+.bh-collage .c-img {
+  position: absolute; margin: 0; overflow: hidden; border-radius: var(--bh-radius);
+  transform: translate3d(0, calc(var(--p, 0) * var(--speed, 0) * 1px), 0); will-change: transform;
+}
+.bh-collage .c-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bh-collage .c-main   { z-index: 2; right: 3%; top: 11%; width: 62%; height: 72%; box-shadow: var(--bh-shadow); }
+.bh-collage .c-small  { z-index: 1; left: 13%; top: 4%; width: 40%; height: 34%; }
+.bh-collage .c-detail { z-index: 3; left: 7%; bottom: 7%; width: 48%; height: 37%; border: 8px solid #fff; box-shadow: 0 24px 50px -20px rgba(29,39,48,.5); }
+.bg-light .bh-collage .c-detail { border-color: var(--bh-light); }
+.bh-collage .c-frame { position: absolute; z-index: 0; right: calc(3% - 18px); top: calc(11% + 22px); width: 62%; height: 72%; border: 1px solid var(--bh-accent); border-radius: var(--bh-radius); }
+
+/* Otkrivanje: slika se "otvara" i zum se slegne, jedna za drugom */
+.bh-anim .bh-collage .c-img { clip-path: inset(0 0 100% 0 round var(--bh-radius)); transition: clip-path 1.2s cubic-bezier(.77,0,.18,1); }
+.bh-anim .bh-collage .c-img img { transform: scale(1.25); transition: transform 1.8s cubic-bezier(.19,1,.22,1); }
+.bh-anim .bh-collage .c-frame { opacity: 0; transform: translate(-18px, -18px); transition: opacity 1s ease, transform 1.4s cubic-bezier(.19,1,.22,1); }
+.bh-anim .bh-collage .c-main   { transition-delay: 0s; }
+.bh-anim .bh-collage .c-small  { transition-delay: .25s; }
+.bh-anim .bh-collage .c-detail { transition-delay: .5s; clip-path: inset(100% 0 0 0 round var(--bh-radius)); }
+.bh-anim .bh-collage .c-main img   { transition-delay: 0s; }
+.bh-anim .bh-collage .c-small img  { transition-delay: .25s; }
+.bh-anim .bh-collage .c-detail img { transition-delay: .5s; }
+.bh-collage.is-in .c-img { clip-path: inset(0 0 0 0 round var(--bh-radius)); }
+.bh-collage.is-in .c-img img { transform: scale(1); }
+.bh-collage.is-in .c-frame { opacity: 1; transform: none; transition-delay: .7s; }
+/* Posle otkrivanja: blagi zum na prelaz mišem */
+.bh-collage.is-done .c-img img { transition: transform .8s ease; transition-delay: 0s; }
+.bh-collage.is-done .c-img.is-hover img { transform: scale(1.06); }
+/* Prelaz mišem: slika izlazi u prvi plan i pomera se u svoju stranu, pa se vraća (klasu is-hover postavlja js/bh.js po početnoj zoni slike, da ne treperi) */
+.bh-collage.is-done .c-img { transition: translate .6s cubic-bezier(.22,1,.36,1), box-shadow .4s ease; transition-delay: 0s; }
+@media (hover: hover) {
+  .bh-collage.is-done .c-img.is-hover { z-index: 5; box-shadow: 0 30px 60px -22px rgba(29,39,48,.55); }
+  .bh-collage.is-done .c-small.is-hover  { translate: -8px -30px; }
+  .bh-collage.is-done .c-main.is-hover   { translate: 30px 0; }
+  .bh-collage.is-done .c-detail.is-hover { translate: -8px 30px; }
+}
+
+@media (max-width: 991.98px) { .bh-collage { margin-top: 10px; } }
+@media (max-width: 575.98px) {
+  .bh-collage .c-detail { border-width: 5px; }
+  .bh-collage .c-frame { right: calc(3% - 8px); top: calc(11% + 12px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bh-collage .c-img { transform: none !important; }
+}
+/* Tri dugmeta u sekciji "O apartmanima": iste veličine kao ostala dugmad na sajtu */
+.bh-about-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.bh-about-btns .btn { flex: 1 1 0; min-width: 0; padding: 12px 18px; font-size: 15px; border-width: 1px; white-space: nowrap; }
+.bh-about-btns .btn-link { padding-left: 8px; padding-right: 8px; }
+@media (max-width: 400px) { .bh-about-btns .btn { padding-left: 10px; padding-right: 10px; font-size: 14px; } }
+/* Sneg na krovu hero fotografije (js/sneg.js) - isti isečak i zum kao fotografija */
+.bh-sneg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.bh-hero-media { will-change: transform; }
+/* Pahulje koje padaju u hero-u (js/sneg.js): iznad fotografije, ispod teksta */
+.bh-pahulje { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+/* Izručivanje snega niz stranicu (js/sneg.js): ispod menija, propušta klikove */
+.bh-izrucivanje { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
+/* Zima: hladna pozadina sekcije "O apartmanima" da se sneg bolje vidi */
+body.bh-zima #o-nama { background: linear-gradient(180deg, #dde6ef 0%, #e9eff5 45%, #f6f8fb 100%); }
+body.bh-zima #o-nama .bh-collage .c-detail { border-color: #eef3f8; }
+/* Telefon/tablet: slika počinje ispod menija, da se krov (sa snegom) vidi u gornjem delu ekrana */
+@media (max-width: 991.98px) {
+  .bh-hero-media { top: 72px; }
+  .bh-hero-v2 { background-color: #1d2730; }
+}
+@media (max-width: 767.98px) {
+  /* svetliji vrh, tamnije samo oko teksta i pri dnu */
+  .bh-hero-v2.has-sunce.overlay:before, .bh-hero-v2.overlay:before {
+    background: linear-gradient(180deg, rgba(20,28,35,.15) 0%, rgba(20,28,35,.15) 14%, rgba(20,28,35,.5) 32%, rgba(20,28,35,.5) 70%, rgba(20,28,35,.75) 100%);
+  }
+}
+/* Telefon: čitljiviji tekst preko kontrastne slike (tamnija traka iza teksta + senka slova) */
+@media (max-width: 767.98px) {
+  .bh-hero-v2.has-sunce.overlay:before, .bh-hero-v2.overlay:before {
+    background: linear-gradient(180deg, rgba(20,28,35,.12) 0%, rgba(20,28,35,.12) 12%, rgba(20,28,35,.66) 24%, rgba(20,28,35,.66) 58%, rgba(20,28,35,.4) 72%, rgba(20,28,35,.75) 100%);
+  }
+  .bh-hero-v2 .bh-title, .bh-hero-v2 .bh-hero-lead, .bh-hero-v2 .bh-eyebrow { text-shadow: 0 2px 14px rgba(10,16,22,.75), 0 1px 3px rgba(10,16,22,.6); }
+}
+/* SVG ikonice (Facebook, Instagram) umesto Font Awesome */
+.bh-ico { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.bh-ico svg { display: block; }
+.bh-footer .bh-social .bh-ico { font-size: 18px; }
+/* Mapa na klik (js/bh.js) */
+.bh-map-ph {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px;
+  color: #fff; padding: 20px;
+  background: linear-gradient(rgba(20,28,35,.62), rgba(20,28,35,.72)), url(../images/galerija/objekat/mini/70.jpg) center/cover;
+  background: linear-gradient(rgba(20,28,35,.62), rgba(20,28,35,.72)), image-set(url(../images/galerija/objekat/mini/70.webp) type('image/webp'), url(../images/galerija/objekat/mini/70.jpg) type('image/jpeg')) center/cover;
+}
+.bh-map-ph strong { font-family: "Playfair Display", serif; font-size: 22px; }
+.bh-map-ph small { font-size: 13px; opacity: .85; margin-bottom: 12px; }
+.bh-map-pin { font-size: 34px; color: #d4b383; margin-bottom: 4px; }
+.bh-map-link { color: rgba(255,255,255,.85) !important; font-size: 13px; text-decoration: underline; margin-top: 8px; }
+.bh-map-link:hover { color: #fff !important; }
+/* Nadnaslov sekcije je <p> (ispravan redosled naslova za SEO), izgleda kao ranije <h4> */
+.heading-wrap p.sub-heading { margin-bottom: .5rem; line-height: 1.2; }
+/* Viber i WhatsApp dugmad (futer i kontakt) */
+.bh-contact-list li.bh-chat { gap: 8px; margin-left: 36px; }
+.bh-chat-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.bh-chat-btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 500; line-height: 1.4; border: 1px solid rgba(255,255,255,.3); color: #fff !important; transition: background .2s, border-color .2s; }
+.bh-chat-btn .bh-ico { font-size: 16px; color: inherit !important; width: auto !important; }
+.bh-chat-btn:hover { text-decoration: none; }
+.bh-viber:hover { background: #7360f2; border-color: #7360f2; }
+.bh-whatsapp:hover { background: #25d366; border-color: #25d366; }
+.bh-contact-big .bh-chat-btn { color: var(--bh-ink) !important; border-color: var(--bh-line); font-weight: 500; }
+.bh-contact-big .bh-viber:hover, .bh-contact-big .bh-whatsapp:hover { color: #fff !important; }
+/* Utisci gostiju (Google recenzije) */
+.bh-rating { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; color: var(--bh-text); font-size: 15px; }
+.bh-rating:hover { text-decoration: none; color: var(--bh-ink); }
+.bh-rating strong { font-family: "Playfair Display", serif; font-size: 34px; color: var(--bh-ink); line-height: 1; }
+.bh-stars { color: #e6a93a; letter-spacing: 1px; font-size: 15px; }
+.bh-stars-lg { font-size: 20px; }
+.bh-star-part { background: linear-gradient(90deg, #e6a93a 70%, #d9d2c6 70%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.bh-review { height: 100%; margin: 0; background: #fff; border: 1px solid var(--bh-line); border-radius: var(--bh-radius); padding: 24px; display: flex; flex-direction: column; box-shadow: 0 10px 30px -22px rgba(29,39,48,.35); }
+.bh-review blockquote { margin: 12px 0 20px; font-size: 15px; line-height: 1.65; color: var(--bh-ink); font-style: italic; flex: 1; }
+.bh-review figcaption { display: flex; align-items: center; gap: 12px; }
+.bh-review figcaption strong { display: block; color: var(--bh-ink); font-size: 15px; line-height: 1.2; }
+.bh-review figcaption small { font-size: 12px; color: var(--bh-text); }
+.bh-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--bh-light); color: var(--bh-accent-dark); display: inline-flex; align-items: center; justify-content: center; font-weight: 500; flex: none; }
+/* Stranica privatnosti */
+.bh-hero-small, .bh-hero-small .site-hero-inner { min-height: 340px !important; height: 42vh !important; }
+.bh-legal h2 { font-size: 24px; margin: 36px 0 12px; }
+.bh-legal p, .bh-legal li { font-size: 16px; }
+.bh-legal ul { padding-left: 20px; margin-bottom: 1rem; }
+.bh-legal-date { font-size: 14px; color: var(--bh-accent-dark); letter-spacing: .05em; }
+.bh-copy a { color: rgba(255,255,255,.75); text-decoration: underline; text-underline-offset: 2px; }
+.bh-copy a:hover { color: #fff; }
+/* Recenzije: duga recenzija skraćena na 5 redova sa "Pročitaj više"; delimična zvezdica (4,7) */
+.bh-review blockquote { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden; flex: none; margin-bottom: 8px; }
+.bh-review.is-open blockquote { -webkit-line-clamp: unset; display: block; }
+.bh-review-more { align-self: flex-start; background: none; border: 0; padding: 0; margin-bottom: 16px; color: var(--bh-accent-dark); font-size: 13px; font-weight: 500; cursor: pointer; }
+.bh-review-more:hover { color: var(--bh-ink); }
+.bh-review figcaption { margin-top: auto; }
+.bh-star-part { background: none !important; color: #d9d2c6 !important; position: relative; display: inline-block; }
+.bh-star-part:after { content: "\f4b3"; font-family: "Ionicons"; position: absolute; left: 0; top: 0; width: 70%; overflow: hidden; color: #e6a93a; }
+/* Ispravka: starije pravilo (.site-hero.overlay h1 36px) je nadjačavalo veličinu naslova novog hero-a na telefonu */
+@media (max-width: 767.98px) { .site-hero.overlay h1.bh-title { font-size: 44px !important; } }
+/* =========================================================
+   POTPIS U FUTERU: greben Kopaonika + BH pečat + veliki bledi natpis
+   ========================================================= */
+.bh-footer { position: relative; overflow: hidden; padding-top: 0; padding-bottom: 0; }
+.bh-signet { position: relative; height: 130px; margin-bottom: 2.5em; }
+.bh-ridge { position: absolute; left: 0; right: 0; bottom: 18px; width: 100%; height: 110px; overflow: visible; }
+.bh-ridge .r-line { fill: none; stroke: var(--bh-accent); stroke-width: 1.4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; opacity: .85; }
+.bh-ridge .r-mid { stroke-width: 1.1; opacity: .45; }
+.bh-ridge .r-back { stroke-width: .9; opacity: .25; }
+.bh-seal { position: absolute; left: 50%; bottom: 0; width: 104px; height: 104px; margin-left: -52px; overflow: visible; }
+.bh-seal .s-out { fill: var(--bh-ink); stroke: var(--bh-accent); stroke-width: 1.2; }
+.bh-seal .s-in { fill: none; stroke: rgba(212,179,131,.45); stroke-width: .8; }
+.bh-seal .s-ring { font-family: "Rubik", sans-serif; font-size: 6.4px; letter-spacing: 1px; fill: #d4b383; }
+.bh-seal .s-bh { font-family: "Playfair Display", serif; font-weight: 700; font-size: 25px; fill: #d4b383; letter-spacing: 1px; }
+.bh-footer > .container { padding-bottom: 1.5em; }
+/* Iscrtavanje: greben se crta od krajeva ka pečatu, pečat se pojavi i blago okrene */
+/* linija ima vector-effect: non-scaling-stroke, pa su vrednosti u pikselima ekrana (3000 > dužina linije) */
+.bh-anim .bh-ridge .r-line { stroke-dasharray: 3000; stroke-dashoffset: 3000; transition: stroke-dashoffset 2.4s cubic-bezier(.65,0,.35,1); }
+.bh-anim .bh-seal { opacity: 0; transform: rotate(-40deg) scale(.85); transition: opacity .8s ease 1.4s, transform 1.4s cubic-bezier(.19,1,.22,1) 1.4s; }
+.bh-signet.is-drawn .bh-ridge .r-line { stroke-dashoffset: 0; }
+/* senke se pojave posle linija, dalji venci malo kasnije */
+.bh-anim .bh-ridge .r-fill { opacity: 0; transition: opacity 1.4s ease 1s; }
+.bh-anim .bh-ridge .r-mid { transition-delay: .25s; }
+.bh-anim .bh-ridge .r-back { transition-delay: .5s; }
+.bh-signet.is-drawn .bh-ridge .r-fill { opacity: 1; }
+.bh-signet.is-drawn .bh-seal { opacity: 1; transform: none; }
+/* Veliki bledi natpis, odsečen dnom stranice */
+.bh-footer-mark {
+  font-family: "Playfair Display", serif; font-weight: 700; white-space: nowrap; text-align: center;
+  font-size: clamp(56px, 13.5vw, 230px); line-height: .78; letter-spacing: -.01em;
+  color: rgba(212,179,131,.07); margin-bottom: -.12em; user-select: none; pointer-events: none;
+}
+@media (max-width: 767.98px) {
+  .bh-signet { height: 96px; margin-bottom: 2em; }
+  .bh-ridge { height: 64px; bottom: 16px; }
+  .bh-seal { width: 84px; height: 84px; margin-left: -42px; }
+  .page-kontakt .bh-footer-mark, .bh-footer-mark { margin-bottom: -.1em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bh-anim .bh-ridge .r-line, .bh-anim .bh-ridge .r-fill { stroke-dashoffset: 0; opacity: 1; transition: none; }
+  .bh-anim .bh-seal { opacity: 1; transform: none; transition: none; }
+}
+/* Snežna prašina sa slika u kolažu (js/bh.js) */
+.bh-prasina { position: absolute; left: -60px; top: -60px; width: calc(100% + 120px); height: calc(100% + 120px); z-index: 6; pointer-events: none; }
+/* =========================================================
+   UVODNA ANIMACIJA (kontakt.html): greben preko celog ekrana se iscrta, pečat se pojavi,
+   sve nestane - ukupno 1,5 s
+   ========================================================= */
+.bh-intro { position: fixed; inset: 0; z-index: 2000; background: var(--bh-ink); pointer-events: none;
+  animation: bhIntroOut .35s ease-in 1.15s forwards; }
+.bh-intro-in { position: absolute; left: 0; right: 0; top: 50%; height: 46vh; transform: translateY(-50%); }
+.bh-intro .bh-ridge { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; }
+.bh-intro .bh-ridge .r-line { stroke-dasharray: 3000; stroke-dashoffset: 3000; animation: bhIntroDraw .95s cubic-bezier(.65,0,.35,1) forwards; }
+.bh-intro .bh-ridge .r-mid { animation-delay: .08s; }
+.bh-intro .bh-ridge .r-back { animation-delay: .16s; }
+.bh-intro .bh-ridge .r-fill { opacity: 0; animation: bhIntroFade .5s ease .45s forwards; }
+.bh-intro .bh-seal { position: absolute; left: 50%; top: 73.3%; width: 150px; height: 150px; margin: -75px 0 0 -75px; /* centar na tački gde se grebeni spajaju (y 66/90) */ opacity: 0; transform: rotate(-35deg) scale(.75);
+  animation: bhIntroSeal .55s cubic-bezier(.19,1,.22,1) .5s forwards; }
+@keyframes bhIntroDraw { to { stroke-dashoffset: 0; } }
+@keyframes bhIntroFade { to { opacity: 1; } }
+@keyframes bhIntroSeal { to { opacity: 1; transform: none; } }
+@keyframes bhIntroOut { to { opacity: 0; visibility: hidden; } }
+@media (max-width: 767.98px) { .bh-intro-in { height: 34vh; } .bh-intro .bh-seal { width: 110px; height: 110px; margin: -55px 0 0 -55px; } }
+@media (prefers-reduced-motion: reduce) { .bh-intro { display: none; } }
+/* Ništa ne sme da proširi stranicu u stranu (telefon bi dozvolio pomeranje udesno).
+   overflow-x: clip (ne hidden) - ne kvari position: sticky (podmeni, kartica za upit) */
+#o-nama { overflow-x: hidden; overflow-x: clip; }
+body { overflow-x: clip; }
