@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="sr-Latn">
   <head>
-    <!-- Google Tag Manager: ovde ide GTM <script> isečak (head) -->
+    <!-- Google Analytics 4 + saglasnost za kolačiće (učitava GA tek posle pristanka) -->
+    <script src="js/analitika.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Politika privatnosti | Belvedere Hills Kopaonik</title>
@@ -32,7 +33,6 @@
     <link rel="stylesheet" href="css/custom.css">
   </head>
   <body class="page-privatnost">
-    <!-- Google Tag Manager (noscript): ovde ide GTM <noscript> isečak -->
 
     <header role="banner">
       <nav class="navbar navbar-expand-lg navbar-dark bh-nav">
@@ -46,6 +46,7 @@
             <ul class="navbar-nav ml-auto">
               <li class="nav-item"><a class="nav-link" href="index.html#pocetna">Početna</a></li>
               <li class="nav-item"><a class="nav-link" href="index.html#apartmani">Apartmani</a></li>
+              <li class="nav-item"><a class="nav-link" href="index.html#cenovnik">Cenovnik</a></li>
               <li class="nav-item"><a class="nav-link" href="index.html#lokacija">Lokacija</a></li>
               <li class="nav-item"><a class="nav-link" href="index.html#galerija">Galerija</a></li>
               <li class="nav-item"><a class="nav-link" href="sadrzaji.html">Sadržaji</a></li>
@@ -71,38 +72,66 @@
       </div>
     </section>
 
-    <!-- NACRT: tekst je pripremljen prema Zakonu o zaštiti podataka o ličnosti ("Sl. glasnik RS", br. 87/2018);
-         pre objave treba da ga pregleda pravnik / odgovorno lice u firmi. Dopuniti kad se uvede analitika (kolačići). -->
+    <!-- NACRT: tekst je pripremljen prema Zakonu o zaštiti podataka o ličnosti ("Sl. glasnik RS", br. 87/2018)
+         i opisuje sajt sa formom preko SMTP-a, prognozom sa RHMZ-a (preko našeg servera) i GA4 uz pristanak.
+         Pre objave treba da ga pregleda pravnik. Datum "Važi od" postaviti na dan objave. -->
     <section class="site-section">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 bh-legal">
-            <p class="bh-legal-date">Važi od: 23. oktobra 2026.</p>
+            <p class="bh-legal-date">Važi od: 13. novembra 2026.</p>
 
             <h2>1. Ko je rukovalac podacima</h2>
-            <p>Rukovalac podacima o ličnosti je <strong>Belvedere Hills d.o.o.</strong>, Bulevar Zorana Đinđića 125a, 11070 Novi Beograd (u daljem tekstu: „mi“). Za sva pitanja u vezi sa vašim podacima možete nam se obratiti na <a href="mailto:info@belvederehills.rs">info@belvederehills.rs</a> ili na telefon <a href="tel:+38162779878">+381 62 779 878</a>.</p>
+            <p>Rukovalac podacima o ličnosti je <strong>Belvedere Hills d.o.o.</strong>, Bulevar Zorana Đinđića 125a, 11070 Novi Beograd, PIB 110854631, MB 21394009 (u daljem tekstu: „mi“). Za sva pitanja u vezi sa vašim podacima možete nam se obratiti na <a href="mailto:info@belvederehills.rs">info@belvederehills.rs</a> ili na telefon <a href="tel:+38162779878">+381 62 779 878</a>.</p>
 
             <h2>2. Koje podatke prikupljamo</h2>
-            <p>Kada pošaljete upit preko forme na stranici <a href="kontakt.html">Kontakt</a>, prikupljamo podatke koje sami unesete:</p>
+            <p><strong>Upit preko forme.</strong> Kada pošaljete upit preko forme na stranici <a href="kontakt.html">Kontakt</a>, prikupljamo podatke koje sami unesete:</p>
             <ul>
               <li>ime i prezime, broj telefona i e-mail adresu;</li>
               <li>datume dolaska i odlaska, broj odraslih i dece, željeni tip apartmana;</li>
               <li>informaciju da li dolazite sa kućnim ljubimcem i sadržaj vaše poruke.</li>
             </ul>
-            <p>Kada nas kontaktirate telefonom, e-mailom, Viberom ili WhatsApp-om, obrađujemo podatke koje nam tom prilikom date.</p>
+            <p><strong>Direktan kontakt.</strong> Kada nas kontaktirate telefonom, e-mailom, Viberom ili WhatsApp-om, obrađujemo podatke koje nam tom prilikom date.</p>
+            <p><strong>Analitika, samo uz vaš pristanak.</strong> Ako prihvatite kolačiće za analitiku, koristimo Google Analytics 4 da bismo videli kako se sajt koristi. Tada se prikupljaju podaci o poseti: koje stranice ste otvorili i koliko dugo, sa kog sajta ili pretraživača ste došli, vrsta uređaja, operativni sistem i pregledač, jezik, približna lokacija (država i grad) i da li ste kliknuli na telefon, Viber, WhatsApp ili e-mail, odnosno poslali upit. Sadržaj forme (ime, telefon, e-mail, poruka) se ne šalje u analitiku. Podaci se vezuju za nasumični identifikator u kolačiću, a ne za vaše ime. Ako ne date pristanak, Google Analytics se ne učitava.</p>
 
             <h2>3. Zašto ih koristimo i po kom osnovu</h2>
-            <p>Podatke koristimo isključivo da bismo odgovorili na vaš upit, proverili slobodne termine i poslali vam ponudu, odnosno da bismo pripremili i realizovali vaš boravak. Osnov obrade je vaš pristanak, koji dajete označavanjem polja za saglasnost u formi, kao i preduzimanje radnji na vaš zahtev pre zaključenja ugovora o smeštaju. Podatke ne koristimo za slanje reklamnih poruka i ne prodajemo ih trećim licima.</p>
+            <ul>
+              <li><strong>Upit i boravak:</strong> da bismo odgovorili na vaš upit, proverili slobodne termine, poslali ponudu, odnosno pripremili i realizovali vaš boravak. Osnov je vaš pristanak, koji dajete označavanjem polja za saglasnost u formi, kao i preduzimanje radnji na vaš zahtev pre zaključenja ugovora o smeštaju.</li>
+              <li><strong>Analitika:</strong> da bismo razumeli kako posetioci koriste sajt i poboljšali ga. Osnov je vaš pristanak, koji dajete klikom na „Prihvatam“ u obaveštenju o kolačićima i koji možete povući u svakom trenutku (videti odeljak 6).</li>
+            </ul>
+            <p>Podatke ne koristimo za slanje reklamnih poruka, ne koristimo ih za oglašavanje i ne prodajemo ih trećim licima.</p>
 
             <h2>4. Koliko dugo ih čuvamo</h2>
-            <p>Podatke iz upita čuvamo onoliko koliko je potrebno da odgovorimo na upit i dogovorimo boravak, a najduže 12 meseci od prijema upita. Ako boravak bude realizovan, podatke potrebne za račun i evidenciju gostiju čuvamo u rokovima koje propisuju zakoni o računovodstvu i ugostiteljstvu.</p>
+            <ul>
+              <li><strong>Upiti:</strong> onoliko koliko je potrebno da odgovorimo na upit i dogovorimo boravak, a najduže 12 meseci od prijema upita. Ako boravak bude realizovan, podatke potrebne za račun i evidenciju gostiju čuvamo u rokovima koje propisuju zakoni o računovodstvu i ugostiteljstvu.</li>
+              <li><strong>Analitika:</strong> podaci u Google Analytics-u se automatski brišu posle 14 meseci. Kolačići Google Analytics-a ističu posle najviše 2 godine, a brišu se i kada povučete pristanak.</li>
+              <li><strong>Vaš izbor u vezi sa kolačićima:</strong> pamti se u vašem pregledaču 12 meseci, posle čega vas ponovo pitamo.</li>
+            </ul>
 
             <h2>5. Ko ima pristup podacima</h2>
-            <p>Podacima pristupaju samo zaposleni koji odgovaraju na upite i organizuju boravak. Upit se tehnički prosleđuje preko pružaoca usluga hostinga i e-pošte, koji podatke obrađuje u naše ime i ne sme da ih koristi u druge svrhe. Podatke ne iznosimo iz Republike Srbije, osim ako nas sami kontaktirate preko usluga kao što su Viber ili WhatsApp, čiji se serveri nalaze u inostranstvu i na koje se primenjuju njihova pravila privatnosti.</p>
+            <p>Podacima iz upita pristupaju samo zaposleni koji odgovaraju na upite i organizuju boravak. Upit se šalje sa servera našeg sajta na naš poslovni e-mail, preko pružaoca usluga hostinga i e-pošte, koji podatke obrađuje u naše ime i ne sme da ih koristi u druge svrhe. Podatke iz upita ne iznosimo iz Republike Srbije.</p>
+            <p>Ako prihvatite analitiku, podatke o poseti obrađuje Google (Google Ireland Limited, Irska, i Google LLC, SAD) kao naš obrađivač, u skladu sa <a href="https://business.safety.google/adsprocessorterms/" target="_blank" rel="noopener">Googleovim uslovima obrade podataka</a>. Google može da prenese ove podatke u SAD i druge zemlje u kojima ima servere. Google Analytics 4 ne čuva IP adrese posetilaca. Deljenje podataka sa Google-om za njegove sopstvene svrhe i za oglašavanje je isključeno.</p>
+            <p>Ako nas kontaktirate preko Vibera ili WhatsApp-a, na te poruke se primenjuju i pravila privatnosti tih usluga, čiji se serveri nalaze u inostranstvu.</p>
 
-            <h2>6. Kolačići i spoljne usluge</h2>
-            <p>Sajt trenutno ne koristi kolačiće za praćenje niti analitiku. Google mapa se učitava tek kada kliknete na dugme „Prikaži mapu“; tada Google može da obradi vašu IP adresu i postavi svoje kolačiće, u skladu sa <a href="https://policies.google.com/privacy?hl=sr" target="_blank" rel="noopener">Google politikom privatnosti</a>. Linkovi ka Facebook-u i Instagram-u vode na te mreže, koje imaju svoja pravila.</p>
-
+            <h2 id="kolacici">6. Kolačići i spoljne usluge</h2>
+            <p>Kolačići su male datoteke koje sajt ostavlja u vašem pregledaču. Pored kolačića, sajt koristi i lokalnu memoriju pregledača (localStorage i sessionStorage), koja radi slično. Ovo su sve stavke koje sajt koristi:</p>
+            <div class="table-responsive">
+              <table class="table table-sm bh-legal-table">
+                <thead>
+                  <tr><th scope="col">Naziv</th><th scope="col">Ko postavlja</th><th scope="col">Svrha</th><th scope="col">Trajanje</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>bh-kolacici</td><td>naš sajt (localStorage)</td><td>pamti da li ste prihvatili ili odbili analitiku; neophodno, uvek aktivno</td><td>12 meseci</td></tr>
+                  <tr><td>bhMeteo</td><td>naš sajt (sessionStorage)</td><td>privremeno čuva podatke o vremenu na Kopaoniku da se ne preuzimaju pri svakom otvaranju stranice; ne sadrži podatke o vama</td><td>dok ne zatvorite karticu, najviše 20 minuta</td></tr>
+                  <tr><td>_ga</td><td>Google Analytics</td><td>razlikuje posetioce (nasumični identifikator); samo uz pristanak</td><td>2 godine</td></tr>
+                  <tr><td>_ga_&lt;ID&gt;</td><td>Google Analytics</td><td>pamti stanje posete; samo uz pristanak</td><td>2 godine</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>Pristanak i njegovo povlačenje.</strong> Pri prvoj poseti sajt vas pita da li prihvatate kolačiće za analitiku. Dugmad „Prihvatam“ i „Odbijam“ su ravnopravna, a sajt radi isto i ako odbijete. Svoj izbor možete promeniti u svakom trenutku preko linka <a href="#" data-kolacici>Podešavanja kolačića</a> na dnu svake stranice. Kada povučete pristanak, kolačići Google Analytics-a se brišu i analitika se više ne učitava.</p>
+            <p><strong>Vreme na Kopaoniku.</strong> Podatke o temperaturi i snegu na naslovnoj stranici preuzima server našeg sajta od Republičkog hidrometeorološkog zavoda Srbije (RHMZ), stanica Kopaonik. Vaš pregledač pri tome ne kontaktira RHMZ niti bilo koji drugi spoljni servis, pa se o vama ništa ne prenosi.</p>
+            <p><strong>Google mapa.</strong> Mapa se učitava tek kada kliknete na dugme „Prikaži mapu“. Tada Google može da obradi vašu IP adresu i postavi svoje kolačiće, u skladu sa <a href="https://policies.google.com/privacy?hl=sr" target="_blank" rel="noopener">Google politikom privatnosti</a>.</p>
+            <p><strong>Ostalo.</strong> Fontovi i ostali delovi sajta učitavaju se sa našeg servera, a ne sa spoljnih servisa. Linkovi ka Facebook-u i Instagram-u vode na te mreže, koje imaju svoja pravila.</p>
             <h2>7. Vaša prava</h2>
             <p>U svakom trenutku imate pravo da:</p>
             <ul>
@@ -171,7 +200,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 text-center bh-copy">
-            Belvedere Hills d.o.o. &copy; <span class="js-year">2026</span>. Sva prava zadržana. &middot; <a href="politika-privatnosti.html">Politika privatnosti</a>
+            Belvedere Hills d.o.o. &copy; <span class="js-year">2026</span>. Sva prava zadržana. &middot; <a href="politika-privatnosti.html">Politika privatnosti</a> &middot; <a href="#" data-kolacici>Podešavanja kolačića</a>
           </div>
         </div>
       </div>

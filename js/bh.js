@@ -125,7 +125,7 @@
       if (el === aktivna) { return; }
       if (aktivna) { aktivna.classList.remove('is-hover'); }
       aktivna = el;
-      if (el) { el.classList.add('is-hover'); $(col).trigger('bh:pomeri', [el]); }
+      if (el) { el.classList.add('is-hover'); }
     }
     col.addEventListener('mousemove', function (e) {
       if (!col.classList.contains('is-done')) { return; }
@@ -136,74 +136,6 @@
       postavi(nova);
     });
     col.addEventListener('mouseleave', function () { postavi(null); });
-  })();
-
-  // Kolaž: kad se slika pomeri na hover, strese se snežna prašina (samo zimi, samo uz miš)
-  (function () {
-    var col = document.querySelector('.bh-collage');
-    var mis = window.matchMedia && window.matchMedia('(hover: hover)').matches;
-    if (!col || !mis || reduceMotion) { return; }
-    var cv = document.createElement('canvas'); cv.className = 'bh-prasina'; cv.setAttribute('aria-hidden', 'true');
-    col.appendChild(cv);
-    var cx = cv.getContext('2d'), dpr = Math.min(2, window.devicePixelRatio || 1), cest = [], radi = false, last = 0, W = 0, H = 0;
-    // mekana bela tačkica, iscrtana jednom
-    var tacka = document.createElement('canvas'); tacka.width = tacka.height = 16;
-    var tg = tacka.getContext('2d'), gr = tg.createRadialGradient(8, 8, 0, 8, 8, 8);
-    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.55, 'rgba(246,249,253,.9)'); gr.addColorStop(.8, 'rgba(170,188,210,.22)'); gr.addColorStop(1, 'rgba(170,188,210,0)'); // senka na ivici: vidi se i na svetloj pozadini
-    tg.fillStyle = gr; tg.fillRect(0, 0, 16, 16);
-    // pravac pomeranja svake slike (isto kao u CSS-u)
-    var smer = { 'c-small': [-0.3, -1], 'c-main': [1, 0], 'c-detail': [-0.3, 1] };
-    var PAD = 60; // canvas je malo veći od kolaža, da prašina može da izađe van
-    function velicina() {
-      W = col.clientWidth + PAD * 2; H = col.clientHeight + PAD * 2;
-      cv.width = W * dpr; cv.height = H * dpr;
-    }
-    velicina(); window.addEventListener('resize', velicina);
-    function prospi(img) {
-      var cr = col.getBoundingClientRect(), r = img.getBoundingClientRect();
-      var k = Object.keys(smer).filter(function (c) { return img.classList.contains(c); })[0], s = smer[k] || [0, -1];
-      var x0 = r.left - cr.left + PAD, y0 = r.top - cr.top + PAD, w = r.width, h = r.height, n = 220;
-      // sneg se strese sa SVIH ivica osim prednje (one u čijem se smeru slika kreće):
-      // svaka čestica odleti od svoje ivice ka spolja, uz blago zanošenje suprotno od pomeranja
-      var horiz = Math.abs(s[0]) >= Math.abs(s[1]);
-      var prednja = horiz ? (s[0] > 0 ? 'desna' : 'leva') : (s[1] > 0 ? 'donja' : 'gornja');
-      var ivice = [
-        { ime: 'gornja', duz: w, n: [0, -1] }, { ime: 'donja', duz: w, n: [0, 1] },
-        { ime: 'leva', duz: h, n: [-1, 0] }, { ime: 'desna', duz: h, n: [1, 0] }
-      ].filter(function (iv) { return iv.ime !== prednja; });
-      var ukDuz = ivice.reduce(function (z, iv) { return z + iv.duz; }, 0);
-      for (var i = 0; i < n; i++) {
-        var q = Math.random() * ukDuz, iv = ivice[0];
-        for (var j = 0; j < ivice.length; j++) { if (q < ivice[j].duz) { iv = ivice[j]; break; } q -= ivice[j].duz; }
-        var t = Math.random(), x, y;
-        if (iv.ime === 'gornja') { x = x0 + t * w; y = y0 + Math.random() * 6; }
-        else if (iv.ime === 'donja') { x = x0 + t * w; y = y0 + h - Math.random() * 6; }
-        else if (iv.ime === 'leva') { x = x0 + Math.random() * 6; y = y0 + t * h; }
-        else { x = x0 + w - Math.random() * 6; y = y0 + t * h; }
-        var b = 35 + Math.random() * 100, bok = (Math.random() - 0.5) * 40;
-        var vx = iv.n[0] * b + (iv.n[0] ? 0 : bok) - s[0] * 30;
-        var vy = iv.n[1] * b * 0.8 + (iv.n[1] ? 0 : bok) - s[1] * 25;
-        cest.push({ x: x, y: y, vx: vx, vy: vy, r: 1.2 + Math.random() * 2.8, a: 0.7 + Math.random() * 0.3, t: 0, zivot: 0.7 + Math.random() * 0.8 });
-      }
-      if (!radi) { radi = true; last = 0; requestAnimationFrame(korak); }
-    }
-    function korak(ts) {
-      var dt = last ? Math.min(0.05, (ts - last) / 1000) : 0; last = ts;
-      cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, W, H);
-      for (var i = cest.length - 1; i >= 0; i--) {
-        var p = cest[i]; p.t += dt;
-        if (p.t >= p.zivot) { cest.splice(i, 1); continue; }
-        p.vy += 140 * dt; p.vx *= 0.97; p.x += p.vx * dt; p.y += p.vy * dt;
-        cx.globalAlpha = p.a * (1 - p.t / p.zivot);
-        cx.drawImage(tacka, p.x - p.r * 2, p.y - p.r * 2, p.r * 4, p.r * 4);
-      }
-      if (cest.length) { requestAnimationFrame(korak); } else { radi = false; cx.clearRect(0, 0, W, H); }
-    }
-    // slika je dobila hover (vidi gore) -> jedan nalet prašine po ulasku
-    $(col).on('bh:pomeri', function (e, img) {
-      if (!document.body.classList.contains('bh-zima')) { return; } // samo zimi (js/sneg.js)
-      setTimeout(function () { prospi(img); }, 60); // kad slika krene da se pomera
-    });
   })();
 
   // Potpis u futeru (greben + BH pečat) se iscrta kad futer uđe u ekran
@@ -320,6 +252,12 @@
       return;
     }
 
+    // Probna verzija na GitHub Pages nema PHP, pa forma tamo ne može da pošalje upit
+    if (/github\.io$/.test(location.hostname)) {
+      showMsg(false, 'Ovo je probna verzija sajta i forma ovde ne šalje upite. Pozovite nas na +381 62 779 878 ili pišite na info@belvederehills.rs.');
+      return;
+    }
+
     var $btn = $form.find('[type=submit]').prop('disabled', true).text('Šaljem...');
     $.ajax({
       url: $form.attr('action'), method: 'POST', data: $form.serialize(), dataType: 'json',
@@ -327,9 +265,8 @@
     }).done(function (r) {
       showMsg(r.ok, r.poruka);
       if (r.ok) {
-        // Događaj za Google Tag Manager / GA4 (okidač: prilagođeni događaj "upit_poslat")
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'upit_poslat', tip_apartmana: $('#tip').val() });
+        // GA4 događaj "poslat upit" (šalje se samo uz pristanak za kolačiće, js/analitika.js)
+        if (window.bhDogadjaj) { window.bhDogadjaj('generate_lead', { tip_apartmana: $('#tip').val() || 'nije izabran' }); }
         form.reset();
       }
     }).fail(function (xhr) {

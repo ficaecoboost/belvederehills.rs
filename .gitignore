@@ -1,0 +1,4 @@
+# Tajna podešavanja (lozinke) postoje samo na hostingu
+inc/podesavanja.lokalno.php
+# Keš i logovi koje pravi server
+inc/kes/

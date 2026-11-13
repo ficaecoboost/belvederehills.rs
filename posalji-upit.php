@@ -3,16 +3,16 @@
  * Belvedere Hills - slanje upita za slobodne termine
  * Prima podatke iz forme na kontakt.html i šalje ih mejlom.
  *
- * PODEŠAVANJE: promenite adrese ispod po potrebi.
- * NAPOMENA: FROM adresa mora biti na domenu belvederehills.rs,
- * inače mejl lako završi u spamu. Za najbolju isporuku kasnije
- * se može preći na SMTP (npr. PHPMailer).
+ * PODEŠAVANJE: inc/podesavanja.php (kome stiže, SMTP), lozinka u inc/podesavanja.lokalno.php.
+ * Slanje: preko SMTP-a (mejl nalog na domenu) ako je upisana lozinka,
+ * inače preko PHP mail() kao rezervne varijante.
  */
 
-// PRIVREMENO ZA TEST: vratiti na 'info@belvederehills.rs' pre puštanja u rad
-$PRIMALAC = 'ficolica@gmail.com';              // kome stižu upiti
-$POSILJALAC = 'noreply@belvederehills.rs';      // adresa sa koje se šalje (domen sajta)
-$NAZIV = 'Belvedere Hills - sajt';
+$BH = require __DIR__ . '/inc/podesavanja.php';
+require __DIR__ . '/inc/smtp.php';
+$PRIMALAC   = $BH['primalac'];
+$POSILJALAC = $BH['posiljalac'];
+$NAZIV      = $BH['naziv'];
 date_default_timezone_set('Europe/Belgrade');
 
 header('Content-Type: application/json; charset=utf-8');
@@ -90,15 +90,20 @@ $tekst .= str_repeat('-', 50) . "\n";
 $tekst .= "Poslato: " . date('d.m.Y. H:i') . "\n";
 
 $naslov = 'Upit za termin: ' . $fmt($d1) . ' - ' . $fmt($d2) . ' (' . $ime . ')';
-$naslov = '=?UTF-8?B?' . base64_encode($naslov) . '?=';
 
-$headers  = 'From: =?UTF-8?B?' . base64_encode($NAZIV) . "?= <$POSILJALAC>\r\n";
-$headers .= "Reply-To: $email\r\n";
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-$headers .= "Content-Transfer-Encoding: 8bit\r\n";
-
-$poslato = @mail($PRIMALAC, $naslov, $tekst, $headers, '-f' . $POSILJALAC);
+if ($BH['smtp_server'] !== '' && $BH['smtp_lozinka'] !== '') {
+    // Glavni način: SMTP preko mejl naloga na domenu
+    list($poslato, $greska) = bh_smtp_posalji($BH, $PRIMALAC, $naslov, $tekst, $email);
+    if (!$poslato) { error_log('Belvedere Hills upit, SMTP greška: ' . $greska); }
+} else {
+    // Rezervno: PHP mail() (dok SMTP nije podešen)
+    $headers  = 'From: =?UTF-8?B?' . base64_encode($NAZIV) . "?= <$POSILJALAC>\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $headers .= "Content-Transfer-Encoding: 8bit\r\n";
+    $poslato = @mail($PRIMALAC, '=?UTF-8?B?' . base64_encode($naslov) . '?=', $tekst, $headers, '-f' . $POSILJALAC);
+}
 
 if ($poslato) {
     odgovor(true, 'Hvala! Vaš upit je poslat. Javićemo vam se u najkraćem roku.', $ajax);

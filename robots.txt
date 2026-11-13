@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /posalji-upit.php
+Disallow: /meteo.php
+Disallow: /inc/
 Disallow: /scss/
-Disallow: /fonts/ionicons/cheatsheet.html
 
 Sitemap: https://belvederehills.rs/sitemap.xml
